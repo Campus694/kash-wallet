@@ -1,0 +1,337 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Кошелёк</title><link rel="icon" href="gram-logo.webp"><style>
+*{box-sizing:border-box}body{margin:0;background:#edf1f6;color:#172537;font:15px Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}button,input,select{font:inherit}button{cursor:pointer;border:0}main{max-width:480px;min-height:100dvh;margin:auto;background:#f5f7fa;padding:24px 18px 100px}header{display:flex;justify-content:space-between;align-items:center;font-weight:700}header small{display:block;font-size:11px;color:#8a96a7;margin-top:4px;letter-spacing:2px}button{background:transparent;color:inherit}.avatar{border-radius:50%;background:#e5edff;color:#397dec;width:40px;height:40px}.balance{text-align:center;padding:40px 0 27px}.muted{color:#8a96a7}.balance h1{font-size:46px;letter-spacing:-2px;margin:12px 0 10px;font-weight:650}.balance h1 span{color:#a4afbd}.demo{font-size:11px;color:#8492a5;background:#e9eef5;border-radius:20px;padding:5px 10px}.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:6px 0 26px}.actions button{background:#fff;border-radius:20px;padding:17px 0 13px;font-size:12px}.actions b{display:block;color:#3486f7;font-size:25px;font-weight:400;margin-bottom:9px}h2{font-size:19px;letter-spacing:-.5px;margin:26px 2px 16px}.card{background:white;border-radius:22px;overflow:hidden}.row{display:flex;align-items:center;width:100%;text-align:left;padding:17px 16px;gap:13px}.row+.row{border-top:1px solid #f1f3f6}.coin{display:grid;place-items:center;border-radius:50%;width:44px;height:44px;flex-shrink:0;color:white;font-size:25px;font-weight:600}.usdt{background:#26a17b}.ton{background:#169de0}.btc{background:#f5a623}.eth{background:#7c88b1}.row strong{display:block;font-size:15px;font-weight:600}.row small{display:block;color:#98a2b0;margin-top:6px;font-size:12px}.right{margin-left:auto;text-align:right}.positive{color:#25a17b!important}.banner{background:#e8f1ff;border-radius:20px;padding:19px;display:flex;align-items:center;gap:16px;margin-top:20px}.banner b{color:#347feb;font-size:28px}.banner strong{font-size:14px}.banner p{font-size:12px;color:#71859d;line-height:1.5;margin:6px 0 0}.section-title{display:flex;align-items:center;justify-content:space-between}.section-title button{color:#3486f7;font-size:12px}nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,480px);display:flex;background:#ffffffef;border-top:1px solid #edf0f4;padding:13px 10px max(15px,env(safe-area-inset-bottom));backdrop-filter:blur(16px)}nav button{flex:1;color:#99a5b4;font-size:11px}nav button.active{color:#3486f7}nav i{font-style:normal;display:block;font-size:23px;margin-bottom:5px}dialog{border:0;border-radius:26px;padding:26px;width:min(92%,440px);color:#172537}dialog::backdrop{background:#17253766;backdrop-filter:blur(4px)}dialog h2{margin-top:0}label{display:block;font-size:13px;color:#718095;margin:20px 0 8px}input,select{width:100%;border:1px solid #e3e8ef;background:#f7f9fc;padding:14px;border-radius:12px;color:#172537}.primary{display:block;width:100%;background:#3486f7;color:white;padding:16px;border-radius:14px;margin-top:23px}.close{float:right;font-size:22px}.note{font-size:13px;line-height:1.6;color:#8492a5}.empty{text-align:center;padding:35px 20px;color:#8a96a7}.error{color:#d15151;font-size:13px}a{color:#3486f7}
+
+body{background:#000;color:#f5f5f5;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}main{background:#000;max-width:480px;padding:0 20px 25px;min-height:100dvh}header{height:76px;border-bottom:1px solid #222;font-size:17px;font-weight:600}header button{font-size:26px;color:#777;padding:10px}.balance{text-align:left;padding:30px 0 25px}.balance .muted{padding:0;color:#777;font-size:14px}.balance h1{font-size:44px;letter-spacing:-1px;margin:17px 0 4px;font-weight:650}.balance h1 span{font-size:19px;color:#737373;letter-spacing:0;font-weight:500}.actions{grid-template-columns:1fr 1fr;gap:12px;margin:8px 0 39px}.actions button{border-radius:15px;background:#242424;color:#eee;padding:16px;font-size:13px}.actions b{color:#eee;font-size:25px;margin-bottom:10px}h2{font-size:23px;margin:0 0 14px;letter-spacing:-.6px}.card{background:transparent;border-radius:0}.row{padding:20px 0;gap:13px}.row+.row{border-top:1px solid #242424}.coin{width:43px;height:43px;font-size:27px}.row strong{font-size:16px;font-weight:400}.row small{font-size:12px;color:#707070;margin-top:5px}.usdt{background:#009a9b}.ton{background:#008ccc}.btc{background:#f39b20}.eth{background:#59658f}footer{font-size:10px;color:#454545;text-align:center;margin-top:30px}dialog{background:#141414;color:#eee;border:1px solid #292929}dialog::backdrop{background:#000a}input,select{background:#222;color:#eee;border-color:#333}.primary{background:#eee;color:#111}.note,label{color:#858585}.demo{background:#222;color:#888}.close{color:#888}button:focus-visible{outline:2px solid #888;outline-offset:3px}button:active{opacity:.7}
+
+/* Dimensions and typography follow the supplied wallet layout. */
+body{background:#000;font-family:-apple-system,BlinkMacSystemFont,"Roboto","Inter","Segoe UI",sans-serif}main{width:100%;max-width:450px;padding:0 14px 32px;min-height:100dvh;box-shadow:none}header{height:56px;border:0;font-size:19px;letter-spacing:-.2px}header button{font-size:23px}.balance-section{padding:35px 0 31px;text-align:center}.balance-label-row{display:flex;align-items:center;justify-content:center;gap:6px;margin:0 auto 12px;color:#6d6d72;padding:0}.balance-label{font-size:13.5px;font-weight:400}.balance-amount-row{display:flex;align-items:baseline;justify-content:center;gap:8px}.balance-val{font-size:42px;line-height:1.1;font-weight:750;letter-spacing:-.5px}.balance-curr{font-size:15.5px;font-weight:600;color:#6d6d72}.actions-row{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 33px}.action-col{display:flex;flex-direction:column;align-items:center;gap:8px;padding:0}.action-btn{height:49px;width:100%;border-radius:14px;background:#1c1c1e;display:flex;align-items:center;justify-content:center}.action-label{font-size:11.5px;font-weight:500;color:#d6d6d8;letter-spacing:-.1px}.assets-title{font-size:20px;font-weight:700;letter-spacing:-.3px;margin:0 0 13px}.assets-list{display:flex;flex-direction:column}.row{height:67px;padding:0;position:relative;gap:11px}.row+.row{border:0}.row:not(:last-child)::after{content:"";position:absolute;left:50px;right:0;bottom:0;height:1px;background:#141416}.coin{width:39px;height:39px;font-size:25px}.row strong{font-size:15.5px;font-weight:500;letter-spacing:-.1px}.row small{font-size:13px;color:#6d6d72;margin-top:3px}.usdt{background:#26a17b}.row .right{margin-left:auto}dialog{max-height:85dvh;overflow:auto}button{touch-action:manipulation}
+
+@font-face{font-family:BalanceInter;src:url("inter-600.ttf") format("truetype");font-weight:600;font-display:swap}header{justify-content:flex-end;height:48px}.balance-section{padding:26px 0 35px}.balance-val{font-family:BalanceInter,Inter,sans-serif;font-size:clamp(64px,18vw,78px);font-weight:600;letter-spacing:-4px;color:#bcbcc2;font-variant-numeric:tabular-nums;line-height:1.12}.balance-amount-row{gap:10px}.balance-curr{color:#707075;font-size:17px}.balance-label-row{margin-bottom:15px}
+
+main{padding-top:max(36px,env(safe-area-inset-top));padding-bottom:calc(125px + env(safe-area-inset-bottom))}.balance-curr{font-size:23px;font-weight:600;color:#85858b}.assets-title{font-size:27px;letter-spacing:-.65px;line-height:1.2;margin-bottom:17px}.floating-nav{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));transform:translateX(-50%);width:calc(100% - 40px);max-width:350px;display:flex;gap:6px;padding:7px;border:1px solid #ffffff24;border-radius:30px;background:linear-gradient(135deg,#343438b8,#1b1b20dc);backdrop-filter:blur(28px) saturate(170%);-webkit-backdrop-filter:blur(28px) saturate(170%);box-shadow:0 12px 40px #0009,inset 0 1px 0 #ffffff12;z-index:20}.floating-nav button{display:flex;align-items:center;justify-content:center;gap:9px;min-height:49px;border-radius:24px;color:#96969e;font-size:12px;font-weight:600;flex:1;transition:background .2s,color .2s}.floating-nav button.active{background:#ffffff12;color:#f1f1f5;box-shadow:inset 0 1px 0 #ffffff0a}.history-view{padding-top:26px}.history-view h2{font-size:27px}.history-view .note{margin-top:26px;text-align:center}
+
+.balance-curr{font-size:17px}.asset-card{display:block;width:100%;text-align:left;background:linear-gradient(135deg,#1b1b1e,#121214);border:1px solid #ffffff0e;border-radius:23px;padding:19px 20px 21px;color:#f5f5f5}.asset-card-header{display:flex;align-items:center;gap:12px}.asset-card-header img{border-radius:13px}.asset-card-header strong{font-size:18px;font-weight:600;letter-spacing:-.3px}.asset-chevron{margin-left:auto;color:#6d6d72;font-size:25px;font-weight:400}.asset-card-details{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:24px;padding-top:18px;border-top:1px solid #ffffff0b}.asset-card-details small{display:block;font-size:12px;color:#77777f;margin-bottom:8px}.asset-card-details strong{display:block;font-size:19px;font-weight:500;color:#c7c7cd}.asset-card-details .asset-card-amount{font-family:BalanceInter,Inter,sans-serif;font-size:27px;letter-spacing:-.7px}.asset-card-amount span{font-family:inherit;font-size:13px;letter-spacing:0;color:#77777f;margin-left:3px}.asset-card-fiat{text-align:right;padding-bottom:3px}
+
+.asset-pill{display:flex;align-items:center;gap:13px;width:100%;min-height:78px;border-radius:999px;padding:15px 23px 15px 16px;background:#19191c;border:1px solid #ffffff09;text-align:left;color:#efeff2}.asset-pill img{border-radius:50%;flex-shrink:0}.asset-pill strong{font-size:18px;font-weight:600;letter-spacing:-.3px}.asset-pill-amount{margin-left:auto;font-family:BalanceInter,Inter,sans-serif;font-size:23px;font-weight:600;color:#bcbcc2;overflow-wrap:anywhere}
+
+.asset-pill{border-radius:20px}.floating-nav{width:calc(100% - 32px);max-width:430px;bottom:calc(20px + env(safe-area-inset-bottom));padding:5px;gap:0;border:1px solid #ffffff03;border-radius:999px;background:linear-gradient(110deg,#342f4a99 0%,#1c2936f5 30%,#1d2936f5 100%);box-shadow:0 8px 28px #0005;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.floating-nav button{min-width:0;min-height:71px;padding:8px 0 6px;display:flex;flex-direction:column;gap:6px;justify-content:center;align-items:center;border-radius:999px;color:#d6dfe8;font-size:12px;font-weight:500;letter-spacing:-.2px}.floating-nav button svg{width:27px;height:27px;flex-shrink:0}.floating-nav button.active{background:linear-gradient(135deg,#ffffff0d,#ffffff06);color:#49a8d9;box-shadow:none}.floating-nav button span{white-space:nowrap}@media(min-width:400px){.floating-nav button{min-height:77px;font-size:13px}.floating-nav button svg{width:30px;height:30px}}
+
+:root{color-scheme:dark}body{background:#080809}main{background:#080809}#content{animation:reveal .35s ease both}.balance-val{color:#c6c6cb;text-shadow:none}.action-btn,.asset-pill,.glass-block{background:linear-gradient(135deg,#ffffff0e,#ffffff04),#161618b8;border:1px solid #ffffff12;box-shadow:inset 0 1px 0 #ffffff09,0 8px 24px #0002;backdrop-filter:blur(22px) saturate(115%);-webkit-backdrop-filter:blur(22px) saturate(115%)}.action-btn{border-radius:19px;height:54px}.asset-pill{border-radius:26px}.floating-nav{background:linear-gradient(135deg,#ffffff16,#ffffff04),#1c1c20d9;border:1px solid #ffffff1c;box-shadow:inset 0 1px 1px #ffffff14,0 12px 36px #0008;max-width:390px;padding:6px;gap:4px;backdrop-filter:blur(32px) saturate(130%);-webkit-backdrop-filter:blur(32px) saturate(130%)}.floating-nav button{min-height:66px;font-size:12px;color:#85858f;gap:5px;transition:background .25s,color .25s,transform .2s;position:relative}.floating-nav button svg{width:25px;height:25px}.floating-nav button.active{color:#f2f2f7;background:linear-gradient(140deg,#ffffff19,#ffffff08);box-shadow:inset 0 1px 0 #ffffff14,0 3px 10px #0002}.floating-nav button.active svg{filter:drop-shadow(0 0 7px #ffffff22)}button{transition:transform .2s ease,filter .2s ease,background .2s ease}button:active{transform:scale(.965);opacity:1;filter:brightness(1.15)}.subpage,.history-view{animation:reveal .3s ease both;padding-top:20px}.subpage h2{font-size:28px;margin-bottom:25px}.glass-block{border-radius:26px;padding:22px;margin-top:16px}.glass-block label:first-child{margin-top:0}.glass-block .note{margin:18px 0 0;font-size:12px}input,select{background:#ffffff05;border:1px solid #ffffff10;border-radius:16px;padding:16px;transition:border-color .2s,box-shadow .2s}input:focus,select:focus{outline:none;border-color:#ffffff40;box-shadow:0 0 0 3px #ffffff06}.primary{border-radius:19px;background:linear-gradient(#e4e4e9,#c3c3cb);color:#18181a;font-weight:600;box-shadow:inset 0 1px 0 #fff6,0 4px 15px #0002}.amount-input{position:relative}.amount-input input{padding-right:70px}.amount-input span{position:absolute;right:16px;top:17px;color:#85858f;font-size:13px}.profile-card{text-align:center}.profile-avatar{margin:0 auto 16px;display:grid;place-items:center;width:66px;height:66px;border-radius:24px;background:linear-gradient(135deg,#44444b,#242428);border:1px solid #ffffff16;font-size:28px;color:#c8c8d0}.profile-card h3{font-size:18px;font-weight:500}.profile-settings>div,.profile-settings>button{display:flex;justify-content:space-between;align-items:center;width:100%;padding:16px 0;font-size:14px;text-align:left}.profile-settings>div{border-bottom:1px solid #ffffff0b}.profile-settings strong{font-size:13px;font-weight:500;color:#95959e}.profile-settings>button{padding-bottom:2px}.profile-settings>div:first-child{padding-top:0}dialog{background:linear-gradient(135deg,#ffffff0b,#ffffff03),#18181ceF;border:1px solid #ffffff1a;border-radius:30px;backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);box-shadow:0 24px 80px #0008}dialog[open]{animation:sheet-in .25s ease both}dialog::backdrop{background:#0008;backdrop-filter:blur(7px)}@keyframes reveal{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}@keyframes sheet-in{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* One glass indicator moves independently of the tab buttons. */
+html { -webkit-tap-highlight-color: transparent; }
+button, input, select, a { -webkit-tap-highlight-color: transparent; }
+:where(button, input, select, a):focus { outline: none; }
+:where(button, input, select, a):focus-visible {
+  outline: 2px solid #aaaab2;
+  outline-offset: 3px;
+}
+input:focus-visible, select:focus-visible {
+  outline: 2px solid #aaaab2;
+  outline-offset: 2px;
+}
+#content, .subpage, .history-view { animation: none; }
+.floating-nav {
+  --inset: 6px;
+  --active-tab: 0;
+  isolation: isolate;
+  gap: 0;
+  padding: var(--inset);
+  background: #202023d9;
+  border-color: #ffffff17;
+  box-shadow: 0 12px 36px #0009, inset 0 1px 0 #ffffff0a;
+}
+.floating-nav::before {
+  content: "";
+  position: absolute;
+  inset: var(--inset) auto var(--inset) var(--inset);
+  width: calc((100% - 2 * var(--inset)) / 3);
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(165deg, #ffffff25, #ffffff09);
+  box-shadow: inset 0 1px 0 #ffffff24, inset 0 0 0 1px #ffffff0e;
+  transform: translate3d(calc(var(--active-tab) * 100%), 0, 0);
+  transition: transform 510ms cubic-bezier(.22, 1, .36, 1);
+}
+.floating-nav button {
+  flex: 1 1 0;
+  transition: color 320ms ease, transform 280ms cubic-bezier(.22, 1, .36, 1);
+}
+.floating-nav button.active { background: transparent; box-shadow: none; }
+.floating-nav button.active svg { filter: none; }
+.floating-nav button:active { transform: scale(.92); filter: none; }
+
+
+.gram-mark { display: block; border-radius: 50%; object-fit: cover; }
+.withdraw-screen { padding: 0 2px; }
+.withdraw-screen h2 { font-size: clamp(22px, 6.1vw, 28px); margin: 0; letter-spacing: -.55px; }
+.withdraw-card { background: #202b36; border-radius: 25px; padding: 13px; }
+.withdraw-summary { margin-top: 23px; padding-block: 0; }
+.withdraw-summary > div { display: flex; justify-content: space-between; align-items: center; gap: 8px; min-height: 47px; font-size: 14px; }
+.withdraw-summary > div + div { border-top: 1px solid #ffffff18; }
+.withdraw-value { display: flex; align-items: center; gap: 5px; color: #a6b0b9; white-space: nowrap; }
+.withdraw-value img { width: 16px; height: 16px; }
+.withdraw-value.is-short { color: #fa696f; }
+.withdraw-form { margin-top: 18px; padding: 16px; }
+.withdraw-form label:first-child { margin-top: 0; }
+.amount-input button { position: absolute; right: 10px; top: 8px; padding: 8px; color: #b7dff5; }
+.withdraw-preview { overflow-wrap: anywhere; line-height: 1.6; }
+.profile-identity { display: grid; justify-items: center; gap: 14px; margin: 12px 0 29px; }
+.profile-identity img { width: 84px; height: 84px; }
+.profile-identity h2 { margin: 0; font-size: 25px; text-align: center; overflow-wrap: anywhere; }
+.profile-links { display: grid; gap: 9px; }
+.profile-links .asset-pill { min-height: 65px; }
+.profile-links strong { font-size: 16px; }
+.profile-link-icon { display: grid; place-items: center; width: 35px; height: 35px; border-radius: 12px; background: #ffffff0e; font-size: 19px; }
+.profile-chevron { margin-left: auto; color: #92929d; font-size: 23px; }
+.settings-toggle { display: flex; justify-content: space-between; align-items: center; color: inherit; }
+.settings-toggle input { width: 20px; height: 20px; accent-color: #9696a1; }
+
+:root {
+  --glass-fill: linear-gradient(152deg, #ffffff17, #ffffff06 42%, #00000015), #17171bd9;
+  --glass-edge: #ffffff22;
+  --glass-depth: inset 0 1px 0 #ffffff20, inset 0 -1px 0 #0008, 0 12px 26px #0005;
+}
+.action-btn, .asset-pill, .glass-block, .withdraw-card, dialog {
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-edge);
+  box-shadow: var(--glass-depth);
+  backdrop-filter: blur(24px) saturate(135%);
+  -webkit-backdrop-filter: blur(24px) saturate(135%);
+}
+.floating-nav {
+  background: linear-gradient(155deg, #323237d9, #161619e8 72%);
+  border-color: var(--glass-edge);
+  box-shadow: var(--glass-depth), 0 10px 32px #0008;
+}
+.floating-nav::before {
+  background: linear-gradient(150deg, #ffffff36, #ffffff11 56%, #ffffff08);
+  box-shadow: inset 0 1px 1px #ffffff3d, inset 0 -1px 0 #ffffff0e, 0 4px 10px #0004;
+}
+.withdraw-screen { padding: 5px 0 0; }
+.withdraw-screen h2 { margin-bottom: 18px; }
+.withdraw-form, .withdraw-summary { margin-top: 11px; border-radius: 25px; padding-inline: 17px; }
+.withdraw-form label { margin: 0 0 9px; color: #ababaf; }
+.withdraw-form input { font-size: 16px; min-width: 0; }
+.withdraw-amount { display: flex; align-items: center; gap: 8px; }
+.withdraw-amount input {
+  flex: 1; width: 0; padding: 5px 0; border: 0; background: transparent;
+  font: 600 clamp(30px, 9vw, 42px)/1.18 BalanceInter, Inter, sans-serif;
+  letter-spacing: -.045em; box-shadow: none;
+}
+.withdraw-amount input:focus { box-shadow: none; }
+.withdraw-amount span {
+  display: flex; align-items: center; gap: 6px; padding: 6px 9px;
+  border-radius: 999px; background: #ffffff10; color: #d1d1d6; font-size: 12px;
+}
+.withdraw-amount img { width: 20px; height: 20px; }
+.withdraw-summary output { font-variant-numeric: tabular-nums; }
+#withdraw-error:empty { display: none; }
+.withdraw-submit { margin-top: 13px; }
+
+.withdraw-amount input,
+.withdraw-amount input:focus,
+.withdraw-amount input:focus-visible {
+  border: 0; outline: 0; box-shadow: none; background: transparent;
+}
+.withdraw-amount input { caret-color: #f1f1f4; }
+.withdraw-amount:focus-within input::placeholder { color: #96969e; }
+.fee-spinner {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid #ffffff22; border-top-color: #d7d7df;
+  animation: fee-spin .65s linear infinite;
+}
+@keyframes fee-spin { to { transform: rotate(1turn); } }
+
+.primary, .action-btn {
+  --button-depth: 5px;
+  transform: translateY(0);
+  transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease;
+}
+.primary {
+  background: linear-gradient(173deg, #f0f0f4 2%, #dadade 41%, #b6b6bf 100%);
+  box-shadow: inset 0 1px 0 #fff, inset 0 -2px 2px #34343e39,
+    0 var(--button-depth) 0 #676773, 0 12px 19px #0008;
+}
+.action-btn {
+  background: linear-gradient(160deg, #444449, #29292f 44%, #1b1b20);
+  box-shadow: inset 0 1px 0 #ffffff36, inset 0 -1px 1px #0008,
+    0 var(--button-depth) 0 #101014, 0 10px 17px #0008;
+}
+.action-col { gap: 12px; }
+.action-col:active { transform: none; filter: none; }
+.primary:active, .action-col:active .action-btn {
+  --button-depth: 1px;
+  transform: translateY(4px);
+  filter: none;
+}
+
+main { padding-bottom: 36px; }
+#modal {
+  position: fixed; inset: auto 0 0; margin: 0 auto;
+  width: min(100%, 450px); max-width: none; max-height: min(86dvh, 720px);
+  padding: 12px 19px max(22px, env(safe-area-inset-bottom));
+  border-radius: 29px 29px 0 0;
+  background: linear-gradient(155deg, #252529, #151517 65%);
+  box-shadow: 0 -12px 44px #0007, inset 0 1px 0 #ffffff10;
+}
+#modal[open] { animation: bottom-sheet-in .46s cubic-bezier(.22, 1, .36, 1) both; }
+#modal::backdrop { background: #0009; }
+@keyframes bottom-sheet-in { from { transform: translateY(100%); } to { transform: translateY(0); } }
+#sheet-title { margin: 0 0 16px; outline: none; }
+#modal .primary, #modal .primary:active {
+  background: #dcdce1; color: #17171a; box-shadow: none;
+}
+#modal .primary:active { transform: scale(.985); background: #c9c9d0; }
+.receive-qr { display: grid; place-items: center; margin: 3px 0 17px; }
+.receive-qr img { width: min(188px, 55vw); height: auto; border-radius: 16px; }
+.receive-address { padding: 13px 15px; border: 1px solid #ffffff14; background: #ffffff08; border-radius: 17px; }
+.receive-address span { display: block; color: #a8a8af; margin-bottom: 6px; font-size: 12px; }
+.receive-address code { overflow-wrap: anywhere; user-select: all; }
+.receive-note { margin: 10px 1px 0; font-size: 12px; }
+#withdraw-form .withdraw-card { box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+
+#modal { padding-top: 22px; }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.withdraw-amount .withdraw-unit { padding: 0; background: none; }
+.withdraw-amount .withdraw-unit img { width: 32px; height: 32px; }
+.action-btn, #modal .primary {
+  position: relative;
+  transition: transform 260ms cubic-bezier(.2,.8,.2,1), box-shadow 260ms ease;
+}
+.action-btn {
+  border-radius: 22px;
+  background: linear-gradient(163deg, #343438, #232326 80%);
+  border: 1px solid #ffffff1a;
+  box-shadow: inset 0 1px 1px #ffffff20, inset 0 -2px 3px #0003, 0 4px 8px #0006;
+}
+#modal .primary {
+  border: 1px solid #ffffff52;
+  border-radius: 21px;
+  background: linear-gradient(170deg, #e4e4e8, #c8c8ce);
+  box-shadow: inset 0 1px 1px #ffffffa0, inset 0 -2px 2px #0002, 0 4px 8px #0005;
+}
+.action-col:active .action-btn, #modal .primary:active {
+  transform: translateY(2px) scale(.985);
+  box-shadow: inset 0 1px 2px #0002, 0 1px 3px #0004;
+}
+#modal .primary:active { background: linear-gradient(170deg, #dedee3, #c1c1c8); }
+</style><main><div id="content"></div></main><dialog id="modal" aria-labelledby="sheet-title"></dialog><script>
+const assets=[['GRAM','GRAM','','gram','0','0.00']];let hidden=localStorage.getItem("hideBalance")==="true";const content=document.querySelector('#content'),modal=document.querySelector('#modal');
+function rows(){return assets.map(a=>`<button class="asset-pill" onclick="asset('${a[1]}')" aria-label="Открыть баланс GRAM"><img src="gram-logo.webp" alt="" width="46" height="46"><strong>${a[1]}</strong><span class="asset-pill-amount">${hidden?'••••':a[4]}</span></button>`).join('')}
+function page(){content.innerHTML=`<section class="balance-section"><button class="balance-label-row" onclick="toggleBalance();page()" aria-label="Скрыть или показать баланс"><span class="balance-label">Общий баланс</span><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M1.8 9C3.3 5.8 5.9 4.2 9 4.2C12.1 4.2 14.7 5.8 16.2 9C14.7 12.2 12.1 13.8 9 13.8C5.9 13.8 3.3 12.2 1.8 9Z" stroke="currentColor" stroke-width="1.3"/><circle cx="9" cy="9" r="2.1" stroke="currentColor" stroke-width="1.3"/></svg></button><div class="balance-amount-row"><span class="balance-val">${hidden?'••••':'0.00'}</span><span class="balance-curr">USD</span></div></section><div class="actions-row"><button class="action-col" onclick="showWithdrawal()"><span class="action-btn"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 15.5V4.5M10 4.5L5.5 9M10 4.5L14.5 9" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="action-label">Перевести</span></button><button class="action-col" onclick="receive()"><span class="action-btn"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4.5V15.5M10 15.5L5.5 11M10 15.5L14.5 11" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="action-label">Получить</span></button></div><h2 class="assets-title">Мои активы</h2><div class="assets-list">${rows()}</div>`}
+function open(title, body, showTitle = true) {
+  modal.innerHTML = '<h2 id="sheet-title" tabindex="-1" autofocus></h2>' + body;
+  modal.querySelector('#sheet-title').classList.toggle('visually-hidden', !showTitle);
+  modal.querySelector('#sheet-title').textContent = title;
+  if (!modal.open) modal.showModal();
+}
+
+function receive() {
+  open('Получить GRAM', `
+    <div class="receive-qr"><img src="receive-demo.svg" alt="QR демонстрационного адреса" width="188" height="188"></div>
+    <div class="receive-address"><span>Адрес в сети TON</span><code>GRAM-DEMO-ADDRESS</code></div>
+    <p class="note receive-note">Демо-адрес. Адрес для пополнения появится после подключения кошелька.</p>
+    <button class="primary" onclick="modal.close()">Понятно</button>
+  `, false);
+}
+
+function asset(c){const a=assets.find(x=>x[1]===c);open(a[0],'<div class="balance"><h1>'+a[4]+'</h1><p>'+c+' ≈ '+a[5]+' $</p><span class="demo">Демонстрационный баланс</span></div><button class="primary" onclick="receive()">Получить</button><button class="primary" onclick="showWithdrawal()">Перевести</button>')}
+// Use integer nano-units for balance, fees, and entered amounts.
+const nanoGram = 1_000_000_000;
+const minWithdrawal = 500_000;
+const withdrawalFee = 100_000;
+const gramLogo = '<img src="gram-logo.webp" alt="" class="gram-mark">';
+const demoBalance = Math.round(Number(assets[0][4]) * nanoGram);
+const formatGram = value => (value / nanoGram).toFixed(9).replace(/\.?0+$/, '');
+
+function toggleBalance() {
+  hidden = !hidden;
+  localStorage.setItem('hideBalance', String(hidden));
+}
+
+function showWithdrawal() {
+  open('Перевести GRAM', `
+    <form id="withdraw-form" novalidate>
+      <div class="withdraw-card withdraw-form">
+        <label for="amount">Сумма</label>
+        <div class="withdraw-amount">
+          <input id="amount" inputmode="decimal" placeholder="0.00" autocomplete="off" aria-describedby="withdraw-error">
+          <span class="withdraw-unit" role="img" aria-label="GRAM">${gramLogo}</span>
+        </div>
+      </div>
+      <div class="withdraw-card withdraw-form">
+        <label for="recipient">Адрес в сети TON</label>
+        <input id="recipient" placeholder="Введите адрес" autocomplete="off" autocapitalize="none" spellcheck="false" aria-describedby="withdraw-error">
+      </div>
+      <div class="withdraw-card withdraw-summary">
+        <div><span>Комиссия сети</span><output class="withdraw-value" id="withdraw-fee" for="amount" aria-live="polite">—</output></div>
+      </div>
+      <p id="withdraw-error" class="error" role="alert"></p>
+      <button class="primary withdraw-submit" type="submit">Перевести</button>
+    </form>`);
+  const form = modal.querySelector('#withdraw-form');
+  const amount = form.elements.amount;
+  const fee = form.querySelector('#withdraw-fee');
+  let feeTimer;
+
+  form.addEventListener('input', () => {
+    form.querySelector('#withdraw-error').textContent = '';
+  });
+  amount.addEventListener('input', () => {
+    clearTimeout(feeTimer);
+    if (!(parseWithdrawalAmount(amount.value) > 0)) {
+      fee.textContent = '—';
+      return;
+    }
+    fee.innerHTML = '<span class="fee-spinner" role="img" aria-label="Оценка комиссии"></span>';
+    feeTimer = setTimeout(() => {
+      fee.textContent = '≈ ' + formatGram(withdrawalFee) + ' GRAM';
+    }, 420);
+  });
+  form.addEventListener('submit', reviewWithdrawal);
+}
+
+function parseWithdrawalAmount(input) {
+  const normalized = input.trim().replace(',', '.');
+  if (!/^\d*(?:\.\d{1,9})?$/.test(normalized)) return NaN;
+  const [whole, fraction = ''] = normalized.split('.');
+  const value = Number(whole) * nanoGram + Number(fraction.padEnd(9, '0'));
+  return Number.isSafeInteger(value + withdrawalFee) ? value : NaN;
+}
+
+function reviewWithdrawal(event) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const value = parseWithdrawalAmount(form.elements.amount.value);
+  const address = form.elements.recipient.value.trim();
+  const error = form.querySelector('#withdraw-error');
+  if (!Number.isFinite(value) || value < minWithdrawal) {
+    error.textContent = 'Минимальная сумма вывода — ' + formatGram(minWithdrawal) + ' GRAM.';
+    form.elements.amount.focus();
+    return;
+  }
+  if (value + withdrawalFee > demoBalance) {
+    error.textContent = 'Не хватает ' + formatGram(value + withdrawalFee - demoBalance) + ' GRAM с учётом комиссии.';
+    return;
+  }
+  if (!/^(?:(?:0|-1):[a-fA-F0-9]{64}|[A-Za-z0-9_-]{48})$/.test(address)) {
+    error.textContent = 'Введите адрес в формате TON.';
+    form.elements.recipient.focus();
+    return;
+  }
+  open('Проверка вывода', '<p id="summary" class="withdraw-preview"></p><p class="note">Отправка станет доступна после подключения сервера кошелька.</p><button class="primary" onclick="modal.close()">Готово</button>');
+  document.querySelector('#summary').textContent = formatGram(value) + ' GRAM → ' + address + ' · комиссия ' + formatGram(withdrawalFee) + ' GRAM';
+}
+
+modal.addEventListener('click', event => {
+  if (event.target !== modal) return;
+  const rect = modal.getBoundingClientRect();
+  if (event.clientX < rect.left || event.clientX > rect.right ||
+      event.clientY < rect.top || event.clientY > rect.bottom) modal.close();
+});
+page();
+</script></html>
